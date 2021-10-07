@@ -1,1 +1,2 @@
-export { default as useClickOutside } from './useClickOutside'
+export { useClickOutside } from './useClickOutside'
+export { useAuthContext } from './useAuthContext'
