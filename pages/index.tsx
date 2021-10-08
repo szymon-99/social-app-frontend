@@ -2,13 +2,12 @@ import type { NextPage } from 'next'
 import Container from '@mui/material/Container'
 import Button from '@mui/material/Button'
 import { styled } from '@mui/system'
-
 import { useAuthContext } from 'hooks'
 
 const Home: NextPage = () => {
-  const { isUserLoggedIn } = useAuthContext()
+  const { user, error } = useAuthContext()
 
-  console.log(isUserLoggedIn)
+  console.log(user, error)
 
   return (
     <Wrapper>

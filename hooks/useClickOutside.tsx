@@ -1,6 +1,6 @@
 import { useEffect, RefObject } from 'react'
 
-const useClickOutside = <T extends Element>(
+export const useClickOutside = <T extends Element>(
   ref: RefObject<T>,
   callback: () => void
 ) => {
@@ -18,5 +18,3 @@ const useClickOutside = <T extends Element>(
     return () => window.removeEventListener('click', handler)
   }, [])
 }
-
-export default useClickOutside
