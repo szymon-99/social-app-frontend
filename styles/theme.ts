@@ -1,10 +1,10 @@
 import { createTheme, responsiveFontSizes } from '@mui/material/styles'
-import { cyan, orange } from '@mui/material/colors'
+import { teal, orange } from '@mui/material/colors'
 
 let theme = createTheme({
   palette: {
     primary: {
-      main: cyan[300],
+      main: teal[300],
     },
     secondary: {
       main: orange[300],
@@ -12,3 +12,5 @@ let theme = createTheme({
   },
 })
 theme = responsiveFontSizes(theme)
+
+export default theme

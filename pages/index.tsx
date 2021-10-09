@@ -14,9 +14,13 @@ const Home: NextPage = () => {
     <>
       <Wrapper>Hello</Wrapper>
       <div style={{ marginTop: 40, display: 'grid', gap: 20 }}>
-        <AppLink to='/account/login'>Login</AppLink>
+        <AppLink to='/account/login' color='error'>
+          Login
+        </AppLink>
         <AppLink to='/account/register'>Register</AppLink>
-        <AppLink to='/account/dashboard'>Dashboard</AppLink>
+        <AppLink to='/account/dashboard' color='secondary'>
+          Dashboard
+        </AppLink>
       </div>
     </>
   )

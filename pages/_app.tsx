@@ -9,7 +9,9 @@ import {
   QueryClientProvider,
   Hydrate,
 } from 'react-query'
+import { ThemeProvider } from '@emotion/react'
 import { useRef } from 'react'
+import theme from 'styles/theme'
 
 const clientSideEmotionCache = createEmotionCache()
 
@@ -28,14 +30,16 @@ function MyApp(props: MyAppProps) {
   const queryClient = useRef(new QueryClient())
   return (
     <CacheProvider value={emotionCache}>
-      <QueryClientProvider client={queryClient.current}>
-        <Hydrate state={dehydratedState}>
-          <AuthProvider>
-            <CssBaseline />
-            <Component {...pageProps} />
-          </AuthProvider>
-        </Hydrate>
-      </QueryClientProvider>
+      <ThemeProvider theme={theme}>
+        <QueryClientProvider client={queryClient.current}>
+          <Hydrate state={dehydratedState}>
+            <AuthProvider>
+              <CssBaseline />
+              <Component {...pageProps} />
+            </AuthProvider>
+          </Hydrate>
+        </QueryClientProvider>
+      </ThemeProvider>
     </CacheProvider>
   )
 }
