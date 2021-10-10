@@ -3,12 +3,10 @@ import Container from '@mui/material/Container'
 import Button from '@mui/material/Button'
 import { styled } from '@mui/system'
 import { useAuthContext } from 'hooks'
-import { AppLink } from 'components'
+import { AppLink } from 'components/atoms'
 
 const Home: NextPage = () => {
   const { user, error } = useAuthContext()
-
-  console.log(user, error)
 
   return (
     <>

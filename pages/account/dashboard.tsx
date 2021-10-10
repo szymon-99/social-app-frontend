@@ -1,5 +1,5 @@
 import { Container, Typography } from '@mui/material'
-import { AppLink } from 'components'
+import { AppLink } from 'components/atoms'
 
 const dashboard = () => {
   return (

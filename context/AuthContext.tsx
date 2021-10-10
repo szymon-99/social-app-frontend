@@ -21,8 +21,6 @@ const useAuth = () => {
     checkUserLoggedIn()
   }, [])
 
-  console.log('render')
-
   const register = async (credentials: RegisterData) => {
     setError(null)
     try {
@@ -63,7 +61,7 @@ const useAuth = () => {
     }
   }
 
-  return { user, error }
+  return { user, error, login, logout, register }
 }
 
 type AuthContextData = ReturnType<typeof useAuth>

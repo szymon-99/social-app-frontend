@@ -1,5 +1,7 @@
 import createCache from '@emotion/cache'
+import { KeyboardReturn } from '@mui/icons-material'
 import axios from 'axios'
+import { FieldErrors } from 'react-hook-form'
 import { ApiError, ApiMessage, StrapiError } from 'types'
 
 export const createEmotionCache = () => {
@@ -30,4 +32,8 @@ export const getErrorMessage = (error: any) => {
     }
   }
   return 'Something went wrong'
+}
+
+export const getFormErrorMessages = (errors: FieldErrors) => {
+  return Object.entries(errors).map(([, value]) => value.message)
 }
