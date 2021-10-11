@@ -1,4 +1,4 @@
-import { Button } from '@mui/material'
+import { LoadingButton } from '@mui/lab'
 import { styled } from '@mui/system'
 import { FC, FormEventHandler } from 'react'
 import { useFormState } from 'react-hook-form'
@@ -14,14 +14,14 @@ const Form: FC<FormProps> = ({ children, onSubmit, actionName }) => {
   return (
     <StyledForm onSubmit={onSubmit}>
       {children}
-      <Button
+      <LoadingButton
         type='submit'
         variant='contained'
         sx={{ marginTop: 2, paddingY: 1, color: 'white' }}
-        disabled={isSubmitting}
+        loading={isSubmitting}
       >
         {actionName}
-      </Button>
+      </LoadingButton>
     </StyledForm>
   )
 }
@@ -30,7 +30,6 @@ export default Form
 
 const StyledForm = styled('form')(({ theme }) => ({
   display: 'grid',
-  maxWidth: 400,
   gap: theme.spacing(2),
-  margin: `${theme.spacing(10)} auto`,
+  marginBottom: theme.spacing(10),
 }))

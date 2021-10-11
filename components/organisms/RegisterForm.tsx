@@ -1,5 +1,5 @@
 import { Form } from 'components/molecules'
-import { TextInput } from 'components/atoms'
+import { TextInput, Toast } from 'components/atoms'
 import { useAuthContext } from 'hooks'
 import { registerSchema } from 'utils/validationSchemas'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -10,7 +10,7 @@ import {
   FormProvider,
 } from 'react-hook-form'
 import ErrorList from 'components/molecules/ErrorList'
-import { getFormErrorMessages } from 'utils/helpers'
+import { Container } from '@mui/material'
 
 interface RegisterFormData {
   password: string
@@ -20,7 +20,8 @@ interface RegisterFormData {
 }
 
 const RegisterForm = () => {
-  const { register } = useAuthContext()
+  const { register, error: serverError } = useAuthContext()
+
   const methods = useForm<RegisterFormData>({
     resolver: yupResolver(registerSchema),
   })
@@ -30,57 +31,61 @@ const RegisterForm = () => {
     formState: { errors },
   } = methods
 
-  const onSubmit: SubmitHandler<RegisterFormData> = (data) => {
-    register(data)
+  const onSubmit: SubmitHandler<RegisterFormData> = async (data) => {
+    await register(data)
   }
 
+  const isError = Object.keys(errors).length ? true : false
+  const errorMessages = Object.entries(errors).map(([, value]) => value.message)
+
   return (
-    <FormProvider {...methods}>
-      {Object.keys(errors).length ? (
-        <ErrorList errors={getFormErrorMessages(errors)} />
-      ) : null}
+    <Container maxWidth='xs'>
+      <FormProvider {...methods}>
+        <ErrorList errors={errorMessages} isError={isError} />
+        {serverError && <Toast message={serverError} severity='error' />}
 
-      <Form onSubmit={handleSubmit(onSubmit)} actionName='Create Account'>
-        <Controller
-          name='username'
-          control={control}
-          defaultValue=''
-          render={({ field }) => (
-            <TextInput field={field} isError={errors.username} />
-          )}
-        ></Controller>
+        <Form onSubmit={handleSubmit(onSubmit)} actionName='Create Account'>
+          <Controller
+            name='username'
+            control={control}
+            defaultValue=''
+            render={({ field }) => (
+              <TextInput field={field} isError={errors.username} />
+            )}
+          ></Controller>
 
-        <Controller
-          name='email'
-          control={control}
-          defaultValue=''
-          render={({ field }) => (
-            <TextInput field={field} isError={errors.email} />
-          )}
-        ></Controller>
+          <Controller
+            name='email'
+            control={control}
+            defaultValue=''
+            render={({ field }) => (
+              <TextInput field={field} isError={errors.email} />
+            )}
+          ></Controller>
 
-        <Controller
-          name='password'
-          control={control}
-          defaultValue=''
-          render={({ field }) => (
-            <TextInput field={field} isError={errors.password} />
-          )}
-        ></Controller>
-        <Controller
-          name='confirm'
-          control={control}
-          defaultValue=''
-          render={({ field }) => (
-            <TextInput
-              field={field}
-              label='confirm password'
-              isError={errors.confirm}
-            />
-          )}
-        ></Controller>
-      </Form>
-    </FormProvider>
+          <Controller
+            name='password'
+            control={control}
+            defaultValue=''
+            render={({ field }) => (
+              <TextInput field={field} isError={errors.password} />
+            )}
+          ></Controller>
+          <Controller
+            name='confirm'
+            control={control}
+            defaultValue=''
+            render={({ field }) => (
+              <TextInput
+                field={field}
+                label='confirm password'
+                isError={errors.confirm}
+              />
+            )}
+          ></Controller>
+        </Form>
+      </FormProvider>
+    </Container>
   )
 }
 

@@ -1,3 +1,6 @@
 export { default as AppLink } from './AppLink'
 export { default as ErrorMessage } from './ErrorMessage'
 export { default as TextInput } from './TextInput'
+export { default as Toast } from './Toast'
+export { default as AppLogo } from './AppLogo'
+export { default as Search } from './Search'

@@ -19,7 +19,7 @@ export default async function handler(
   const { username, password, email } = body
 
   if (!username) {
-    res.status(400).send('Please provide username')
+    return res.status(400).send('Please provide username')
   }
 
   try {
@@ -44,8 +44,6 @@ export default async function handler(
     res.status(200).json(user)
   } catch (error) {
     const { message, statusCode } = getStrapiError(error)
-    return res.status(statusCode).json({ message })
+    res.status(statusCode).json({ message })
   }
-
-  return res.status(200).send('ok')
 }

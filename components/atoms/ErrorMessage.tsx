@@ -1,15 +1,12 @@
-import { ListItem, ListItemIcon, ListItemText } from '@mui/material'
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
+import { Alert } from '@mui/material'
+
 import { FC } from 'react'
 
 const ErrorMessage: FC = ({ children }) => {
   return (
-    <ListItem>
-      <ListItemIcon>
-        <ErrorOutlineIcon />
-      </ListItemIcon>
-      <ListItemText>{children}</ListItemText>
-    </ListItem>
+    <Alert sx={{ marginBottom: 1 }} severity='error'>
+      {children}
+    </Alert>
   )
 }
 

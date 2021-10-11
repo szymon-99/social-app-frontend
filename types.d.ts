@@ -56,6 +56,3 @@ export interface StrapiError {
   message: [{ messages: [{ message: string }] }]
   statusCode: number
 }
-export interface ApiMessage {
-  message: string
-}

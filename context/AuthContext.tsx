@@ -1,12 +1,15 @@
 import { AxiosResponse } from 'axios'
 import { server } from 'config'
+import { useRouter } from 'next/router'
 import { createContext, FC, useState, useEffect } from 'react'
 import { User, RegisterData, LoginData } from 'types'
 import { getErrorMessage } from 'utils/helpers'
 
 const useAuth = () => {
   const [user, setUser] = useState<User | null>(null)
-  const [error, setError] = useState<unknown | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const router = useRouter()
 
   useEffect(() => {
     const checkUserLoggedIn = async () => {
@@ -17,7 +20,9 @@ const useAuth = () => {
       } catch (e) {
         setUser(null)
       }
+      setIsLoading(false)
     }
+
     checkUserLoggedIn()
   }, [])
 
@@ -30,6 +35,7 @@ const useAuth = () => {
       >('/auth/register', credentials)
 
       setUser(user)
+      router.push('/account/dashboard')
     } catch (error) {
       const message = getErrorMessage(error)
       setError(message)
@@ -45,6 +51,7 @@ const useAuth = () => {
       )
 
       setUser(user)
+      router.push('/account/dashboard')
     } catch (error) {
       const message = getErrorMessage(error)
       setError(message)
@@ -55,13 +62,14 @@ const useAuth = () => {
     try {
       await server.post('/auth/logout')
       setUser(null)
+      router.push('/')
     } catch (error) {
       const message = getErrorMessage(error)
       setError(message)
     }
   }
 
-  return { user, error, login, logout, register }
+  return { user, error, login, logout, register, isLoading }
 }
 
 type AuthContextData = ReturnType<typeof useAuth>

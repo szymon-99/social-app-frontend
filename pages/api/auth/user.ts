@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import cookie from 'cookie'
 import { database } from 'config'
-import { getStrapiError } from 'utils/helpers'
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,6 +10,7 @@ export default async function handler(
 
   if (method !== 'GET') {
     res.setHeader('Allow', 'GET')
+
     return res.status(405).json({ message: `Method ${method} not allowed` })
   }
 
@@ -27,9 +27,8 @@ export default async function handler(
       },
     })
 
-    return res.status(200).json(user)
+    res.status(200).json(user)
   } catch (error) {
-    const { message, statusCode } = getStrapiError(error)
-    return res.status(statusCode).json({ message })
+    return res.status(403).json({ message: 'User Forbidden' })
   }
 }

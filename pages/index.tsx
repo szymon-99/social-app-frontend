@@ -1,9 +1,9 @@
 import type { NextPage } from 'next'
 import Container from '@mui/material/Container'
-import Button from '@mui/material/Button'
 import { styled } from '@mui/system'
 import { useAuthContext } from 'hooks'
 import { AppLink } from 'components/atoms'
+import { Button } from '@mui/material'
 
 const Home: NextPage = () => {
   const { user, error } = useAuthContext()
