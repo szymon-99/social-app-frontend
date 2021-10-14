@@ -1,6 +1,6 @@
 import { Form } from 'components/molecules'
 import { TextInput, Toast } from 'components/atoms'
-import { useAuthContext } from 'hooks'
+import { useUser } from 'hooks'
 import { registerSchema } from 'utils/validationSchemas'
 import { yupResolver } from '@hookform/resolvers/yup'
 import {
@@ -11,6 +11,9 @@ import {
 } from 'react-hook-form'
 import ErrorList from 'components/molecules/ErrorList'
 import { Container } from '@mui/material'
+import { useState } from 'react'
+import { registerUser } from 'utils/axiosHelpers'
+import { getErrorMessage } from 'utils/helpers'
 
 interface RegisterFormData {
   password: string
@@ -20,7 +23,10 @@ interface RegisterFormData {
 }
 
 const RegisterForm = () => {
-  const { register, error: serverError } = useAuthContext()
+  const { mutateUser } = useUser({
+    redirectIfFound: true,
+    redirectTo: '/account/dashboard',
+  })
 
   const methods = useForm<RegisterFormData>({
     resolver: yupResolver(registerSchema),
@@ -31,8 +37,18 @@ const RegisterForm = () => {
     formState: { errors },
   } = methods
 
+  const [serverError, setServerError] = useState<null | string>(null)
+
   const onSubmit: SubmitHandler<RegisterFormData> = async (data) => {
-    await register(data)
+    setServerError(null)
+
+    try {
+      mutateUser(await registerUser(data))
+    } catch (error) {
+      const message = getErrorMessage(error)
+
+      setServerError(message)
+    }
   }
 
   const isError = Object.keys(errors).length ? true : false

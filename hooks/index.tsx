@@ -1,2 +1,2 @@
 export { useClickOutside } from './useClickOutside'
-export { useAuthContext } from './useAuthContext'
+export { useUser } from './useUser'

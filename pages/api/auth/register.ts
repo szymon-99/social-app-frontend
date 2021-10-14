@@ -19,7 +19,7 @@ export default async function handler(
   const { username, password, email } = body
 
   if (!username) {
-    return res.status(400).send('Please provide username')
+    return res.status(400).json({ message: 'Please provide username' })
   }
 
   try {

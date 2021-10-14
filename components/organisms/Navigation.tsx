@@ -1,11 +1,9 @@
 import { styled } from '@mui/system'
-import { Search } from 'components/atoms'
-import { MobileMenu, DesktopMenu } from 'components/molecules'
+import { DesktopMenu, MobileMenu } from 'components/molecules'
 
 const Navigation = () => {
   return (
     <Wrapper>
-      <Search />
       <MobileMenu />
       <DesktopMenu />
     </Wrapper>
@@ -13,9 +11,13 @@ const Navigation = () => {
 }
 
 const Wrapper = styled('div')(({ theme }) => ({
+  justifySelf: 'flex-end',
   display: 'flex',
   alignItems: 'center',
-  gap: theme.spacing(1),
-}))
+  marginLeft: theme.spacing(1),
 
+  [theme.breakpoints.up('md')]: {
+    marginLeft: 'none',
+  },
+}))
 export default Navigation

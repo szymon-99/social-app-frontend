@@ -12,7 +12,7 @@ export type Post = {
   updated_at: string
 }
 
-export type User = {
+export interface UserInfo {
   id: number
   username: string
   email: string
@@ -31,9 +31,13 @@ export type User = {
   avatar: null | string
   posts: Post[]
 }
+
+export interface User extends UserInfo {
+  isLoggedIn: boolean
+}
 export type StrapiAuthenticationResponse = {
   jwt: string
-  user: User
+  user: UserInfo
 }
 
 export interface RegisterData {

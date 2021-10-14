@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import cookie from 'cookie'
 import { database } from 'config'
+import { User, UserInfo } from 'types'
 
 export default async function handler(
   req: NextApiRequest,
@@ -15,20 +16,20 @@ export default async function handler(
   }
 
   if (!headers.cookie) {
-    return res.status(403).json({ message: 'Not Authorized' })
+    return res.json({ isLoggedIn: false })
   }
 
   const { token } = cookie.parse(headers.cookie)
 
   try {
-    const { data: user } = await database.get('/users/me', {
+    const { data: user } = await database.get<UserInfo>('/users/me', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
 
-    res.status(200).json(user)
+    return res.json({ isLoggedIn: true, ...user })
   } catch (error) {
-    return res.status(403).json({ message: 'User Forbidden' })
+    return res.json({ isLoggedIn: false })
   }
 }

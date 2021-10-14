@@ -1,5 +1,6 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
-import { database } from 'config'
+import axios, { AxiosResponse } from 'axios'
+
+import { LoginData, RegisterData, User } from 'types'
 
 export const handleRequest = async <T>(
   request: () => Promise<AxiosResponse<T>>
@@ -14,38 +15,35 @@ export const handleRequest = async <T>(
   }
 }
 
-export const appFetcher = async <T>(url: string) => {
-  const request = () => database.get<T>(url)
+export const fetcher = async <T>(url: string) => {
+  const request = () => axios.get<T>(url)
   const { data } = await handleRequest(request)
 
   return data
 }
 
-export const appPoster = async <T>(
-  url: string,
-  uploadData: T,
-  config?: AxiosRequestConfig<T>
-) => {
-  const request = () => database.post<T>(url, uploadData, config)
+export const loginUser = async (credentials: LoginData) => {
+  const request = () =>
+    axios.post<LoginData, AxiosResponse<User>>('/api/auth/login', credentials)
   const { data } = await handleRequest(request)
 
   return data
 }
 
-export const appUpdater = async <T>(
-  url: string,
-  uploadData: T,
-  config?: AxiosRequestConfig<T>
-) => {
-  const request = () => database.put<T>(url, uploadData, config)
-  const { data } = await handleRequest(request)
+export const registerUser = async (credentials: RegisterData) => {
+  const request = () =>
+    axios.post<RegisterData, AxiosResponse<User>>(
+      '/api/auth/register',
+      credentials
+    )
 
+  const { data } = await handleRequest(request)
   return data
 }
 
-export const appDeleter = async <T>(url: string) => {
-  const request = () => database.delete<T>(url)
-  const { data } = await handleRequest(request)
+export const logout = async () => {
+  const request = () => axios.post('/api/auth/logout')
 
+  const { data } = await handleRequest(request)
   return data
 }

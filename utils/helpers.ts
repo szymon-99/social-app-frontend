@@ -22,13 +22,8 @@ export const getStrapiError = (error: any): ApiError => {
 }
 
 export const getErrorMessage = (error: any) => {
-  if (axios.isAxiosError(error)) {
-    if (error.response?.data) {
-      const { message } = error.response.data
-      if (typeof message === 'string') {
-        return message
-      }
-    }
+  if (error.message && typeof error.message === 'string') {
+    return error.message
   }
   return 'Something went wrong'
 }
