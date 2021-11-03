@@ -1,6 +1,5 @@
-import { Collapse, Grow } from '@mui/material'
+import { Collapse, Grow, Alert } from '@mui/material'
 import { Box } from '@mui/system'
-import { ErrorMessage } from 'components/atoms'
 import { FC } from 'react'
 import { TransitionGroup } from 'react-transition-group'
 
@@ -16,7 +15,9 @@ const ErrorList: FC<ErrorListProps> = ({ errors, isError }) => {
         <TransitionGroup>
           {errors.map((err) => (
             <Collapse key={err}>
-              <ErrorMessage>{err}</ErrorMessage>
+              <Alert sx={{ marginBottom: 1 }} severity='error'>
+                {err}
+              </Alert>
             </Collapse>
           ))}
         </TransitionGroup>

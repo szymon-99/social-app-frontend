@@ -1,11 +1,18 @@
 import { styled } from '@mui/system'
 import { DesktopMenu, MobileMenu } from 'components/molecules'
+import { useUser } from '@hooks/useUser'
+import { logout } from 'utils/axiosHelpers'
 
 const Navigation = () => {
+  const { mutateUser } = useUser()
+
+  const handleLogout = async () => {
+    mutateUser(await logout(), false)
+  }
   return (
     <Wrapper>
-      <MobileMenu />
-      <DesktopMenu />
+      <MobileMenu logout={handleLogout} />
+      <DesktopMenu logout={handleLogout} />
     </Wrapper>
   )
 }

@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import cookie from 'cookie'
 import { database } from 'config'
-import { User, UserInfo } from 'types'
+import { UserInfo } from 'types'
 
 export default async function handler(
   req: NextApiRequest,

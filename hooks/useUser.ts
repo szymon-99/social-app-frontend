@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import Router from 'next/router'
 import useSWR from 'swr'
-import { fetcher } from 'utils/axiosHelpers'
+import { fetcher } from '@utils/axiosHelpers'
 import { User } from 'types'
 
 export function useUser({ redirectTo = '', redirectIfFound = false } = {}) {

@@ -13,9 +13,10 @@ const TextInput: FC<TextInputProps> = ({ label, field, isError }) => {
     <TextField
       error={isError ? true : false}
       label={label || field.name}
+      id={field.name}
       {...field}
       variant='standard'
-    ></TextField>
+    />
   )
 }
 

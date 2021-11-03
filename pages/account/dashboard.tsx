@@ -1,6 +1,6 @@
 import { Container, Typography } from '@mui/material'
 import { AppLink } from 'components/atoms'
-import { useUser } from 'hooks'
+import { useUser } from '@hooks/useUser'
 
 const dashboard = () => {
   const { user } = useUser({ redirectTo: '/' })

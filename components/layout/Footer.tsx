@@ -14,7 +14,7 @@ const Footer: FC = () => {
 }
 
 const StyledFooter = styled('footer')(({ theme }) => ({
-  background: theme.palette.secondary.main,
+  background: theme.palette.primary.main,
 }))
 
 export default Footer

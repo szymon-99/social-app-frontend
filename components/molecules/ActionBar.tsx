@@ -1,24 +1,28 @@
+import { AddCircle } from '@mui/icons-material'
+import { Button } from '@mui/material'
 import { styled } from '@mui/system'
-import { Search, AppLogo } from 'components/atoms'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { AppLogo } from 'components/atoms'
+import Link from 'next/link'
+import { useUser } from '@hooks/useUser'
 
 const ActionBar = () => {
-  const { pathname } = useRouter()
-  const [showSearch, setShowSearch] = useState(false)
-
-  useEffect(() => {
-    if (pathname === '/ads') {
-      setShowSearch(true)
-      return
-    }
-    setShowSearch(false)
-  }, [pathname])
-
+  const { user } = useUser()
   return (
     <Wrapper>
       <AppLogo />
-      {showSearch && <Search />}
+
+      {user?.isLoggedIn && (
+        <Link href='/ads/new' passHref>
+          <Button
+            variant='contained'
+            color='secondary'
+            startIcon={<AddCircle />}
+            sx={{ whiteSpace: 'nowrap' }}
+          >
+            Add your add
+          </Button>
+        </Link>
+      )}
     </Wrapper>
   )
 }
@@ -27,11 +31,7 @@ const Wrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   width: '100%',
-
-  [theme.breakpoints.up('md')]: {
-    justifyContent: 'start',
-    gap: theme.spacing(2),
-  },
+  alignItems: 'center',
 }))
 
 export default ActionBar

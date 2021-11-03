@@ -1,10 +1,9 @@
 import {
-  Button,
+  Divider,
   Drawer,
   Hidden,
   IconButton,
   List,
-  ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
@@ -13,10 +12,14 @@ import { FC, useState } from 'react'
 import MenuIcon from '@mui/icons-material/menu'
 import Link from 'next/link'
 import { navLinks } from 'utils/constants'
-import ActionButtons from './ActionButtons'
 import { Box } from '@mui/system'
+import { Logout } from '@mui/icons-material'
 
-const MobileMenu: FC = () => {
+interface MobileMenuProps {
+  logout: () => Promise<void>
+}
+
+const MobileMenu: FC<MobileMenuProps> = ({ logout }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleDrawer =
@@ -39,7 +42,7 @@ const MobileMenu: FC = () => {
       </IconButton>
       <Drawer anchor='right' open={isOpen} onClose={toggleDrawer(false)}>
         <Box
-          sx={{ width: 300, marginTop: 2 }}
+          sx={{ width: 200, marginTop: 2 }}
           onClick={toggleDrawer(false)}
           onKeyDown={toggleDrawer(false)}
         >
@@ -56,8 +59,14 @@ const MobileMenu: FC = () => {
                 </Link>
               )
             })}
+            <Divider />
+
+            <ListItemButton onClick={logout} divider>
+              <ListItemIcon>{<Logout />}</ListItemIcon>
+              <ListItemText primary='logout' />
+            </ListItemButton>
           </List>
-          <ActionButtons />
+          {/* <ActionButtons /> */}
         </Box>
       </Drawer>
     </Hidden>

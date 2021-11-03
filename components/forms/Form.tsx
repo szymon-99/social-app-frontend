@@ -31,5 +31,4 @@ export default Form
 const StyledForm = styled('form')(({ theme }) => ({
   display: 'grid',
   gap: theme.spacing(2),
-  marginBottom: theme.spacing(10),
 }))

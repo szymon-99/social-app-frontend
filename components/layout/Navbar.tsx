@@ -8,8 +8,8 @@ import {
 import { styled } from '@mui/system'
 import { FC } from 'react'
 import { Navigation } from 'components/organisms'
-import { ActionBar, AccountButtons } from 'components/molecules'
-import { useUser } from 'hooks'
+import { ActionBar, LoginButtons } from 'components/molecules'
+import { useUser } from '@hooks/useUser'
 
 const Navbar: FC = () => {
   const trigger = useScrollTrigger()
@@ -21,7 +21,7 @@ const Navbar: FC = () => {
         <StyledAppBar position='sticky'>
           <StyledToolbar>
             <ActionBar />
-            {user?.isLoggedIn ? <Navigation /> : <AccountButtons />}
+            {user?.isLoggedIn ? <Navigation /> : <LoginButtons />}
           </StyledToolbar>
         </StyledAppBar>
       </Slide>
@@ -33,10 +33,6 @@ const Navbar: FC = () => {
 const StyledToolbar = styled(Container)(({ theme }) => ({
   padding: theme.spacing(1),
   display: 'flex',
-
-  [theme.breakpoints.up('md')]: {
-    padding: theme.spacing(2),
-  },
 }))
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({

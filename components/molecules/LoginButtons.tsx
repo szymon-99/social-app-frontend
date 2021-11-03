@@ -2,7 +2,7 @@ import { Button } from '@mui/material'
 import { styled } from '@mui/system'
 import Link from 'next/link'
 
-const AccountButtons = () => {
+const LoginButtons = () => {
   return (
     <Wrapper>
       <Link href='/account/login' passHref>
@@ -38,4 +38,4 @@ const Wrapper = styled('div')(({ theme }) => ({
   },
 }))
 
-export default AccountButtons
+export default LoginButtons
