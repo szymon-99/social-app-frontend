@@ -1,15 +1,2 @@
-import { FC } from 'react'
-import Footer from './Footer'
-import Navbar from './Navbar'
-
-const Layout: FC = ({ children }) => {
-  return (
-    <>
-      <Navbar />
-      {children}
-      <Footer />
-    </>
-  )
-}
-
-export default Layout
+export { default as Footer } from './footer/Footer'
+export { default as Navbar } from './navbar/Navbar'

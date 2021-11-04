@@ -1,6 +1,6 @@
 import { RegisterForm } from '@components/forms/register'
 import { useUser } from '@hooks/useUser'
-import { Container, Typography } from '@mui/material'
+import { Container, Typography, Stack } from '@mui/material'
 import { AppLink } from 'components/atoms'
 import { RegisterData } from 'types'
 import { registerUser } from '@utils/axiosHelpers'
@@ -12,13 +12,17 @@ const RegisterPage = () => {
     return mutateUser(registerUser(data))
   }
   return (
-    <Container maxWidth='xs'>
-      <Typography variant='h1'>Register</Typography>
+    <main>
+      <Container maxWidth='xs'>
+        <Stack spacing={2}>
+          <Typography variant='h1'>Register</Typography>
 
-      <RegisterForm register={register} />
+          <RegisterForm register={register} />
 
-      <AppLink to='/'>Home</AppLink>
-    </Container>
+          <AppLink to='/'>Home</AppLink>
+        </Stack>
+      </Container>
+    </main>
   )
 }
 

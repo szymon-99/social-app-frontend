@@ -6,15 +6,11 @@ import Link from 'next/link'
 const AppLogo = () => {
   return (
     <Link href='/' passHref>
-      <StyledButton variant='text' size='medium'>
+      <Button variant='text' size='medium' sx={{ color: 'common.white' }}>
         <Home /> <Typography variant='h6'>App</Typography>
-      </StyledButton>
+      </Button>
     </Link>
   )
 }
-
-const StyledButton = styled(Button)(({ theme }) => ({
-  color: theme.palette.common.white,
-}))
 
 export default AppLogo

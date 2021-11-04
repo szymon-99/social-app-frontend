@@ -5,11 +5,12 @@ import {
   Toolbar,
   useScrollTrigger,
 } from '@mui/material'
+import Navigation from './Navigation'
+import LoginButtons from './LoginButtons'
 import { styled } from '@mui/system'
 import { FC } from 'react'
-import { Navigation } from 'components/organisms'
-import { ActionBar, LoginButtons } from 'components/molecules'
 import { useUser } from '@hooks/useUser'
+import { AppLogo } from '@components/atoms'
 
 const Navbar: FC = () => {
   const trigger = useScrollTrigger()
@@ -18,12 +19,12 @@ const Navbar: FC = () => {
   return (
     <>
       <Slide in={!trigger} direction='down'>
-        <StyledAppBar position='sticky'>
+        <AppBar position='sticky'>
           <StyledToolbar>
-            <ActionBar />
+            <AppLogo />
             {user?.isLoggedIn ? <Navigation /> : <LoginButtons />}
           </StyledToolbar>
-        </StyledAppBar>
+        </AppBar>
       </Slide>
       <Toolbar />
     </>
@@ -33,10 +34,7 @@ const Navbar: FC = () => {
 const StyledToolbar = styled(Container)(({ theme }) => ({
   padding: theme.spacing(1),
   display: 'flex',
-}))
-
-const StyledAppBar = styled(AppBar)(({ theme }) => ({
-  background: theme.palette.primary.dark,
+  justifyContent: 'space-between',
 }))
 
 export default Navbar

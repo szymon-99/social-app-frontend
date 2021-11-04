@@ -1,7 +1,11 @@
 import { styled } from '@mui/system'
-import { DesktopMenu, MobileMenu } from 'components/molecules'
+import { Button } from '@mui/material'
 import { useUser } from '@hooks/useUser'
-import { logout } from 'utils/axiosHelpers'
+import { logout } from '@utils/axiosHelpers'
+import Link from 'next/link'
+import AddCircle from '@mui/icons-material/AddCircle'
+import DesktopMenu from './DesktopMenu'
+import MobileMenu from './MobileMenu'
 
 const Navigation = () => {
   const { mutateUser } = useUser()
@@ -11,6 +15,16 @@ const Navigation = () => {
   }
   return (
     <Wrapper>
+      <Link href='/ads/new' passHref>
+        <Button
+          variant='contained'
+          color='secondary'
+          startIcon={<AddCircle />}
+          sx={{ whiteSpace: 'nowrap' }}
+        >
+          Create your Ad
+        </Button>
+      </Link>
       <MobileMenu logout={handleLogout} />
       <DesktopMenu logout={handleLogout} />
     </Wrapper>

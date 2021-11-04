@@ -15,7 +15,11 @@ describe('LoginForm', () => {
     expect(passwordInput).toBeInTheDocument()
     expect(emailInput).toBeInTheDocument()
   })
+  it('is enabled by default', () => {
+    const submitBtn = screen.getByRole('button')
 
+    expect(submitBtn).toBeEnabled()
+  })
   it('should not call login and display 2 errors when form is empty', async () => {
     const submitButton = screen.getByRole('button')
 
@@ -30,13 +34,13 @@ describe('LoginForm', () => {
     const submitButton = screen.getByRole('button')
 
     fireEvent.change(emailInput, { target: { value: 'test' } })
-    fireEvent.change(passwordInput, { target: { value: 'ewa123' } })
+    fireEvent.change(passwordInput, { target: { value: 'test123' } })
 
     fireEvent.click(submitButton)
 
     expect(await screen.findAllByRole('alert')).toHaveLength(1)
     expect(emailInput).toHaveValue('test')
-    expect(passwordInput).toHaveValue('ewa123')
+    expect(passwordInput).toHaveValue('test123')
     expect(mockLogin).not.toBeCalled()
   })
   it('should display proper errors when password is too short', async () => {
@@ -44,31 +48,32 @@ describe('LoginForm', () => {
     const passwordInput = screen.getByRole('textbox', { name: 'password' })
     const submitButton = screen.getByRole('button')
 
-    fireEvent.change(emailInput, { target: { value: 'ewa@gmail.com' } })
-    fireEvent.change(passwordInput, { target: { value: 'ewa' } })
+    fireEvent.change(emailInput, { target: { value: 'test@gmail.com' } })
+    fireEvent.change(passwordInput, { target: { value: 'test' } })
 
     fireEvent.click(submitButton)
 
     expect(await screen.findAllByRole('alert')).toHaveLength(1)
-    expect(emailInput).toHaveValue('ewa@gmail.com')
-    expect(passwordInput).toHaveValue('ewa')
+    expect(emailInput).toHaveValue('test@gmail.com')
+    expect(passwordInput).toHaveValue('test')
     expect(mockLogin).not.toBeCalled()
   })
-  it('when form is correctly done should call login with proper arguments', async () => {
+  it('should submit without errors and is disabled when sumbitting', async () => {
     const emailInput = screen.getByRole('textbox', { name: 'email' })
     const passwordInput = screen.getByRole('textbox', { name: 'password' })
     const submitButton = screen.getByRole('button')
 
-    fireEvent.change(emailInput, { target: { value: 'ewa@gmail.com' } })
-    fireEvent.change(passwordInput, { target: { value: 'ewa123' } })
+    fireEvent.change(emailInput, { target: { value: 'test@gmail.com' } })
+    fireEvent.change(passwordInput, { target: { value: 'test123' } })
 
     fireEvent.click(submitButton)
 
-    expect(await screen.queryAllByRole('alert')).toHaveLength(0)
+    expect(screen.queryByRole('alert')).toBeFalsy()
+    expect(submitButton).toBeDisabled()
     await waitFor(() =>
       expect(mockLogin).toBeCalledWith({
-        identifier: 'ewa@gmail.com',
-        password: 'ewa123',
+        identifier: 'test@gmail.com',
+        password: 'test123',
       })
     )
   })

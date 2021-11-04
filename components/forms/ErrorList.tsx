@@ -11,7 +11,7 @@ interface ErrorListProps {
 const ErrorList: FC<ErrorListProps> = ({ errors, isError }) => {
   return (
     <Grow in={isError}>
-      <Box sx={{ marginBottom: 4 }}>
+      <Box>
         <TransitionGroup>
           {errors.map((err) => (
             <Collapse key={err}>

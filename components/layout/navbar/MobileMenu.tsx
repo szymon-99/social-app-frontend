@@ -11,7 +11,7 @@ import {
 import { FC, useState } from 'react'
 import MenuIcon from '@mui/icons-material/menu'
 import Link from 'next/link'
-import { navLinks } from 'utils/constants'
+import { navLinks } from '@utils/constants'
 import { Box } from '@mui/system'
 import { Logout } from '@mui/icons-material'
 
@@ -66,7 +66,6 @@ const MobileMenu: FC<MobileMenuProps> = ({ logout }) => {
               <ListItemText primary='logout' />
             </ListItemButton>
           </List>
-          {/* <ActionButtons /> */}
         </Box>
       </Drawer>
     </Hidden>

@@ -1,4 +1,4 @@
-import { Container, Typography } from '@mui/material'
+import { Container, Typography, Stack } from '@mui/material'
 import { AppLink } from 'components/atoms'
 import { LoginForm } from 'components/forms/login'
 import { useUser } from '@hooks/useUser'
@@ -13,17 +13,22 @@ const LoginPage = () => {
     return mutateUser(loginUser(data))
   }
   return (
-    <Container maxWidth='xs'>
-      <Typography variant='h1'>Login</Typography>
+    <main>
+      <Container maxWidth='xs'>
+        <Stack spacing={2}>
+          <Typography variant='h1'>Login</Typography>
 
-      <LoginForm login={login} />
+          <LoginForm login={login} />
 
-      <Typography mt={4} variant='body1'>
-        Don't have an account? <Link href='/account/register'>Register</Link>
-      </Typography>
+          <Typography variant='body1'>
+            Don't have an account?{' '}
+            <Link href='/account/register'>Register</Link>
+          </Typography>
 
-      <AppLink to='/'>Home</AppLink>
-    </Container>
+          <AppLink to='/'>Home</AppLink>
+        </Stack>
+      </Container>
+    </main>
   )
 }
 

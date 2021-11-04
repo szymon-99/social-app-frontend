@@ -1,6 +1,6 @@
 import { Hidden, IconButton, Tooltip } from '@mui/material'
 import { styled } from '@mui/system'
-import { navLinks } from 'utils/constants'
+import { navLinks } from '@utils/constants'
 import Link from 'next/link'
 import { FC } from 'react'
 import { Logout } from '@mui/icons-material'
@@ -19,7 +19,9 @@ const DesktopMenu: FC<DesktopMenuProps> = ({ logout }) => {
           return (
             <Link href={href} key={href} passHref>
               <Tooltip title={label}>
-                <StyledButton size='large'>{icon}</StyledButton>
+                <IconButton sx={{ color: 'common.white' }} size='large'>
+                  {icon}
+                </IconButton>
               </Tooltip>
             </Link>
           )
@@ -36,10 +38,6 @@ const DesktopMenu: FC<DesktopMenuProps> = ({ logout }) => {
 const StyledNav = styled('nav')(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(2),
-}))
-
-const StyledButton = styled(IconButton)(({ theme }) => ({
-  color: theme.palette.common.white,
 }))
 
 export default DesktopMenu
