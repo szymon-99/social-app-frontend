@@ -1,24 +1,27 @@
 import { Container, Typography, Stack } from '@mui/material'
 import { AppLink } from 'components/atoms'
 import { LoginForm } from 'components/forms/login'
-import { useUser } from '@hooks/useUser'
-import { loginUser } from '@utils/axiosHelpers'
 import Link from 'next/link'
-import { LoginData } from 'types'
+import { useAppSelector } from '@hooks/redux'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 const LoginPage = () => {
-  const { mutateUser } = useUser({ redirectTo: '/', redirectIfFound: true })
+  const { isLoggedIn } = useAppSelector((store) => store.auth)
+  const router = useRouter()
 
-  const login = (data: LoginData) => {
-    return mutateUser(loginUser(data))
-  }
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push('/account/dashboard')
+    }
+  }, [isLoggedIn])
   return (
     <main>
       <Container maxWidth='xs'>
         <Stack spacing={2}>
           <Typography variant='h1'>Login</Typography>
 
-          <LoginForm login={login} />
+          <LoginForm />
 
           <Typography variant='body1'>
             Don't have an account?{' '}

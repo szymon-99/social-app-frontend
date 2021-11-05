@@ -1,23 +1,27 @@
 import { RegisterForm } from '@components/forms/register'
-import { useUser } from '@hooks/useUser'
 import { Container, Typography, Stack } from '@mui/material'
 import { AppLink } from 'components/atoms'
-import { RegisterData } from 'types'
-import { registerUser } from '@utils/axiosHelpers'
+import { useAppSelector } from '@hooks/redux'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 const RegisterPage = () => {
-  const { mutateUser } = useUser({ redirectIfFound: true, redirectTo: '/' })
+  const { isLoggedIn } = useAppSelector((store) => store.auth)
+  const router = useRouter()
 
-  const register = (data: RegisterData) => {
-    return mutateUser(registerUser(data))
-  }
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push('/account/dashboard')
+    }
+  }, [isLoggedIn])
+
   return (
     <main>
       <Container maxWidth='xs'>
         <Stack spacing={2}>
           <Typography variant='h1'>Register</Typography>
 
-          <RegisterForm register={register} />
+          <RegisterForm />
 
           <AppLink to='/'>Home</AppLink>
         </Stack>

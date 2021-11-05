@@ -1,13 +1,8 @@
 import { Container, Typography } from '@mui/material'
 import { AppLink } from 'components/atoms'
-import { useUser } from '@hooks/useUser'
+import { AppPage } from 'types'
 
-const dashboard = () => {
-  const { user } = useUser({ redirectTo: '/' })
-
-  if (!user) {
-    return <h1>Loading...</h1>
-  }
+const dashboard: AppPage = () => {
   return (
     <Container>
       <Typography variant='h1'>Dashboard</Typography>
@@ -16,5 +11,7 @@ const dashboard = () => {
     </Container>
   )
 }
+
+dashboard.protected = true
 
 export default dashboard

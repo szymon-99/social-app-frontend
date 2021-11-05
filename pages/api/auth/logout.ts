@@ -18,7 +18,7 @@ export default async function handler(
       })
     )
 
-    res.status(200).json({ isLoggedIn: false })
+    res.status(200).end()
   } else {
     res.setHeader('Allow', ['POST'])
     res.status(405).json({ message: `Method ${req.method} not allowed` })

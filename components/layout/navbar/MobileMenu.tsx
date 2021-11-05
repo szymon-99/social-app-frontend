@@ -14,12 +14,10 @@ import Link from 'next/link'
 import { navLinks } from '@utils/constants'
 import { Box } from '@mui/system'
 import { Logout } from '@mui/icons-material'
+import { useAuthActions } from '@hooks/redux'
 
-interface MobileMenuProps {
-  logout: () => Promise<void>
-}
-
-const MobileMenu: FC<MobileMenuProps> = ({ logout }) => {
+const MobileMenu = () => {
+  const { logoutUser } = useAuthActions()
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleDrawer =
@@ -61,7 +59,7 @@ const MobileMenu: FC<MobileMenuProps> = ({ logout }) => {
             })}
             <Divider />
 
-            <ListItemButton onClick={logout} divider>
+            <ListItemButton onClick={logoutUser} divider>
               <ListItemIcon>{<Logout />}</ListItemIcon>
               <ListItemText primary='logout' />
             </ListItemButton>

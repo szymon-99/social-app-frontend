@@ -3,18 +3,17 @@ import TextInput from '../TextInput'
 import { Toast } from '@components/atoms'
 import { loginSchema } from '@utils/validationSchemas'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { getErrorMessage } from '@utils/helpers'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
-import { FC, useState } from 'react'
-import { LoginData, User } from 'types'
+import { FC } from 'react'
+import { LoginData } from 'types'
 import { Stack } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
+import { useAppSelector, useAuthActions } from '@hooks/redux'
 
-interface LoginFormProps {
-  login: (data: LoginData) => Promise<User | undefined>
-}
+const LoginForm: FC = () => {
+  const { loginUser } = useAuthActions()
+  const { isSubmitting, error } = useAppSelector((store) => store.auth)
 
-const LoginForm: FC<LoginFormProps> = ({ login }) => {
   const methods = useForm<LoginData>({
     resolver: yupResolver(loginSchema),
   })
@@ -22,21 +21,11 @@ const LoginForm: FC<LoginFormProps> = ({ login }) => {
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = methods
 
-  const [serverError, setServerError] = useState<null | string>(null)
-
   const onSubmit: SubmitHandler<LoginData> = async (data) => {
-    setServerError(null)
-
-    try {
-      await login(data)
-    } catch (error) {
-      const message = getErrorMessage(error)
-
-      setServerError(message)
-    }
+    loginUser(data)
   }
 
   const isError = Object.keys(errors).length ? true : false
@@ -45,7 +34,7 @@ const LoginForm: FC<LoginFormProps> = ({ login }) => {
   return (
     <>
       <ErrorList errors={errorMessages} isError={isError} />
-      {serverError && <Toast message={serverError} severity='error' />}
+      {error && <Toast message={error} severity='error' />}
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2}>

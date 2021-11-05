@@ -20,6 +20,7 @@ module.exports = {
     '^@hooks/(.*)$': '<rootDir>/hooks/$1',
     '^@utils/(.*)$': '<rootDir>/utils/$1',
     '^@config/(.*)$': '<rootDir>/config/$1',
+    '^@store/(.*)$': '<rootDir>/store/$1',
   },
   testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/'],
   testEnvironment: 'jsdom',

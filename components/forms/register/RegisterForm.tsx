@@ -6,9 +6,8 @@ import { Toast } from '@components/atoms'
 import { registerSchema } from '@utils/validationSchemas'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
-import { FC, useState } from 'react'
-import { getErrorMessage } from '@utils/helpers'
-import { RegisterData, User } from 'types'
+import { FC } from 'react'
+import { useAppSelector, useAuthActions } from '@hooks/redux'
 
 interface RegisterFormData {
   password: string
@@ -16,33 +15,22 @@ interface RegisterFormData {
   username: string
   confirm?: string
 }
-interface RegisterFormProps {
-  register: (data: RegisterData) => Promise<User | undefined>
-}
 
-const RegisterForm: FC<RegisterFormProps> = ({ register }) => {
+const RegisterForm: FC = () => {
+  const { isSubmitting, error } = useAppSelector((store) => store.auth)
+  const { registerUser } = useAuthActions()
+
   const methods = useForm<RegisterFormData>({
     resolver: yupResolver(registerSchema),
   })
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = methods
 
-  const [serverError, setServerError] = useState<null | string>(null)
-
   const onSubmit: SubmitHandler<RegisterFormData> = async (data) => {
-    setServerError(null)
-    delete data.confirm
-
-    try {
-      await register(data)
-    } catch (error) {
-      const message = getErrorMessage(error)
-
-      setServerError(message)
-    }
+    registerUser(data)
   }
 
   const isError = Object.keys(errors).length ? true : false
@@ -51,7 +39,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ register }) => {
   return (
     <>
       <ErrorList errors={errorMessages} isError={isError} />
-      {serverError && <Toast message={serverError} severity='error' />}
+      {error && <Toast message={error} severity='error' />}
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2}>

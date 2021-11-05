@@ -1,4 +1,16 @@
+import { EmotionCache } from '@emotion/utils'
 import { AxiosResponse } from 'axios'
+import { NextComponentType, NextPage, NextPageContext } from 'next'
+import { AppProps } from 'next/app'
+
+export interface AppPage extends NextPage {
+  protected?: true
+}
+
+export interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache
+  Component: NextComponentType<NextPageContext, any, P> & { protected?: true }
+}
 
 export type Post = {
   id: number

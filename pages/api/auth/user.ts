@@ -16,7 +16,7 @@ export default async function handler(
   }
 
   if (!headers.cookie) {
-    return res.json({ isLoggedIn: false })
+    return res.status(404).end()
   }
 
   const { token } = cookie.parse(headers.cookie)
@@ -28,8 +28,8 @@ export default async function handler(
       },
     })
 
-    return res.json({ isLoggedIn: true, ...user })
+    return res.json(user)
   } catch (error) {
-    return res.json({ isLoggedIn: false })
+    return res.status(404).end()
   }
 }

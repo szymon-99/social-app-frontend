@@ -40,10 +40,10 @@ export default async function handler(
       })
     )
 
-    res.status(200).json({ isLoggedIn: true, ...user })
+    res.status(200).json(user)
   } catch (error) {
     const { message, statusCode } = getStrapiError(error)
 
-    return res.status(statusCode).json({ message })
+    return res.status(statusCode).json(message)
   }
 }

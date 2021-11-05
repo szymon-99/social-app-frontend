@@ -44,6 +44,6 @@ export default async function handler(
     res.status(200).json(user)
   } catch (error) {
     const { message, statusCode } = getStrapiError(error)
-    res.status(statusCode).json({ message })
+    res.status(statusCode).json(message)
   }
 }

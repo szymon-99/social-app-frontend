@@ -9,12 +9,12 @@ import Navigation from './Navigation'
 import LoginButtons from './LoginButtons'
 import { styled } from '@mui/system'
 import { FC } from 'react'
-import { useUser } from '@hooks/useUser'
 import { AppLogo } from '@components/atoms'
+import { useAppSelector } from '@hooks/redux'
 
 const Navbar: FC = () => {
   const trigger = useScrollTrigger()
-  const { user } = useUser()
+  const { isLoggedIn } = useAppSelector((store) => store.auth)
 
   return (
     <>
@@ -22,7 +22,7 @@ const Navbar: FC = () => {
         <AppBar position='sticky'>
           <StyledToolbar>
             <AppLogo />
-            {user?.isLoggedIn ? <Navigation /> : <LoginButtons />}
+            {isLoggedIn ? <Navigation /> : <LoginButtons />}
           </StyledToolbar>
         </AppBar>
       </Slide>

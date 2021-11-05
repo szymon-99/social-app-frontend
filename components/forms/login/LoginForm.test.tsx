@@ -6,7 +6,7 @@ const user = {} as User
 const mockLogin = jest.fn(() => Promise.resolve(user))
 
 describe('LoginForm', () => {
-  beforeEach(() => render(<LoginForm login={mockLogin} />))
+  beforeEach(() => render(<LoginForm />))
 
   it('has email and password fields', () => {
     const emailInput = screen.getByRole('textbox', { name: 'email' })

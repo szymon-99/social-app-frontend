@@ -1,18 +1,11 @@
 import { styled } from '@mui/system'
 import { Button } from '@mui/material'
-import { useUser } from '@hooks/useUser'
-import { logout } from '@utils/axiosHelpers'
 import Link from 'next/link'
 import AddCircle from '@mui/icons-material/AddCircle'
 import DesktopMenu from './DesktopMenu'
 import MobileMenu from './MobileMenu'
 
 const Navigation = () => {
-  const { mutateUser } = useUser()
-
-  const handleLogout = async () => {
-    mutateUser(await logout(), false)
-  }
   return (
     <Wrapper>
       <Link href='/ads/new' passHref>
@@ -25,8 +18,8 @@ const Navigation = () => {
           Create your Ad
         </Button>
       </Link>
-      <MobileMenu logout={handleLogout} />
-      <DesktopMenu logout={handleLogout} />
+      <MobileMenu />
+      <DesktopMenu />
     </Wrapper>
   )
 }
@@ -36,6 +29,7 @@ const Wrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   marginLeft: theme.spacing(1),
+  gap: theme.spacing(2),
 
   [theme.breakpoints.up('md')]: {
     marginLeft: 'none',

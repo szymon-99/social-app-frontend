@@ -2,14 +2,11 @@ import { Hidden, IconButton, Tooltip } from '@mui/material'
 import { styled } from '@mui/system'
 import { navLinks } from '@utils/constants'
 import Link from 'next/link'
-import { FC } from 'react'
 import { Logout } from '@mui/icons-material'
+import { useAuthActions } from '@hooks/redux'
 
-interface DesktopMenuProps {
-  logout: () => Promise<void>
-}
-
-const DesktopMenu: FC<DesktopMenuProps> = ({ logout }) => {
+const DesktopMenu = () => {
+  const { logoutUser } = useAuthActions()
   return (
     <Hidden implementation='css' mdDown>
       <StyledNav>
@@ -27,7 +24,7 @@ const DesktopMenu: FC<DesktopMenuProps> = ({ logout }) => {
           )
         })}
         <Tooltip title='Logout'>
-          <IconButton onClick={logout} size='large' color='warning'>
+          <IconButton onClick={logoutUser} size='large' color='warning'>
             <Logout />
           </IconButton>
         </Tooltip>
